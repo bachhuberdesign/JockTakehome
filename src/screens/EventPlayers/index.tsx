@@ -14,12 +14,13 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-import { orderBy } from 'lodash';
+import { filter, orderBy } from 'lodash';
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
   TouchableOpacity,
 } from '@gorhom/bottom-sheet';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { TradeablesEntity } from '../../types';
 import * as staticNbaEventData from '../../../assets/data/nba_event.json';
@@ -93,33 +94,38 @@ export const EventPlayers: React.FC<Props> = props => {
   }, []);
 
   const sortedTradeables = useMemo(() => {
-    switch (sortType) {
-      case TradeableSortType.PointsProjected:
-        return orderBy(
-          tradeables,
-          (tradeable: TradeablesEntity) => tradeable.points.projected || 0,
-          sortDirection
-        );
-      case TradeableSortType.PointsScored:
-        return orderBy(
-          tradeables,
-          (tradeable: TradeablesEntity) => tradeable.points.scored || 0,
-          sortDirection
-        );
-      case TradeableSortType.PriceEstimated:
-        return orderBy(
-          tradeables,
-          (tradeable: TradeablesEntity) => tradeable.price.estimated || 0,
-          sortDirection
-        );
-      default:
-        return orderBy(
-          tradeables,
-          (tradeable: TradeablesEntity) => tradeable.points.projected || 0,
-          sortDirection
-        );
+    const toFilter = searchText.replace(/[^A-Za-z0-9]/g, '').toLowerCase();
+
+    const filtered = filter(
+      tradeables,
+      (tradeable: TradeablesEntity) =>
+        // Because we are dipslaying names as S. Curry, we need to make sure
+        // that the user can search both S. Curry as well as Stephen Curry
+        tradeable.entity.name
+          .replace(/[^A-Za-z0-9]/g, '')
+          .toLowerCase()
+          .includes(toFilter) ||
+        `${tradeable.entity.first_name[0]}${tradeable.entity.last_name}`
+          .replace(/[^A-Za-z0-9]/g, '')
+          .toLowerCase()
+          .includes(toFilter)
+    );
+
+    let orderFunction;
+    if (sortType === TradeableSortType.PriceEstimated) {
+      orderFunction = (tradeable: TradeablesEntity) =>
+        tradeable.price.estimated || 0;
+    } else if (sortType === TradeableSortType.PointsScored) {
+      orderFunction = (tradeable: TradeablesEntity) =>
+        tradeable.points.scored || 0;
+    } else {
+      // default to PointsProjected sorting
+      orderFunction = (tradeable: TradeablesEntity) =>
+        tradeable.points.projected || 0;
     }
-  }, [tradeables, sortType, sortDirection]);
+
+    return orderBy(filtered, orderFunction, sortDirection);
+  }, [tradeables, sortType, sortDirection, searchText]);
 
   const onSearchTextChanged = (text: string) => {
     setSearchText(text);
@@ -131,17 +137,26 @@ export const EventPlayers: React.FC<Props> = props => {
 
   return (
     <BottomSheetModalProvider>
-      <View>
-        <TextInput
-          style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-          onChangeText={onSearchTextChanged}
-          value={searchText}
-        />
-        <Button
-          onPress={handlePresentModalPress}
-          title="Present Modal"
-          color="black"
-        />
+      <>
+        <View style={{ margin: 16, flexDirection: 'row' }}>
+          <TextInput
+            placeholder="Search players by name"
+            style={{
+              height: 32,
+              flexGrow: 1,
+              marginEnd: 4,
+            }}
+            onChangeText={onSearchTextChanged}
+            value={searchText}
+          />
+          <MaterialCommunityIcons
+            name="filter-variant"
+            onPress={handlePresentModalPress}
+            size={24}
+            style={{ alignSelf: 'center' }}
+          />
+        </View>
+
         <FlatList
           data={sortedTradeables}
           keyExtractor={item => `${item.id}`}
@@ -186,7 +201,7 @@ export const EventPlayers: React.FC<Props> = props => {
             </TouchableOpacity>
           </View>
         </BottomSheetModal>
-      </View>
+      </>
     </BottomSheetModalProvider>
   );
 };
