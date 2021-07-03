@@ -17,13 +17,13 @@ import { filter, orderBy } from 'lodash';
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
-  TouchableOpacity,
 } from '@gorhom/bottom-sheet';
 import { Ionicons } from '@expo/vector-icons';
 
 import { TradeablesEntity } from '../../types';
 import * as staticNbaEventData from '../../../assets/data/nba_event.json';
 import { TradeableCard } from '../../components/TradeableCard';
+import { SheetListItem } from '../../components/SheetListItem';
 
 enum TradeableSortType {
   PointsProjected = 'pointsProjected',
@@ -170,34 +170,37 @@ export const EventPlayers: React.FC<Props> = props => {
           onChange={handleSheetChanges}
         >
           <View style={styles.bottomSheetContainer}>
-            <Text>Sort by</Text>
-            <TouchableOpacity
-              onPress={() => setSortType(TradeableSortType.PointsProjected)}
-            >
-              <Text>Projected FPS</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => setSortType(TradeableSortType.PointsScored)}
-            >
-              <Text>Scored FPS</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => setSortType(TradeableSortType.PriceEstimated)}
-            >
-              <Text>Price</Text>
-            </TouchableOpacity>
-            <Text>Order by</Text>
-            <TouchableOpacity
-              onPress={() => setSortDirection(SortDirection.Descending)}
-            >
-              <Text>Descending</Text>
-            </TouchableOpacity>
+            <Text style={styles.bottomSheetHeaderText}>Sort by</Text>
 
-            <TouchableOpacity
+            <SheetListItem
+              label="Projected FPS"
+              onPress={() => setSortType(TradeableSortType.PointsProjected)}
+              isSelected={sortType === TradeableSortType.PointsProjected}
+            />
+            <SheetListItem
+              label="Scored FPS"
+              onPress={() => setSortType(TradeableSortType.PointsScored)}
+              isSelected={sortType === TradeableSortType.PointsScored}
+            />
+            <SheetListItem
+              label="Price"
+              onPress={() => setSortType(TradeableSortType.PriceEstimated)}
+              isSelected={sortType === TradeableSortType.PriceEstimated}
+            />
+
+            <Text style={styles.bottomSheetHeaderText}>Order by</Text>
+
+            <SheetListItem
+              label="Descending"
+              onPress={() => setSortDirection(SortDirection.Descending)}
+              isSelected={sortDirection === SortDirection.Descending}
+            />
+
+            <SheetListItem
+              label="Ascending"
               onPress={() => setSortDirection(SortDirection.Ascending)}
-            >
-              <Text>Ascending</Text>
-            </TouchableOpacity>
+              isSelected={sortDirection === SortDirection.Ascending}
+            />
           </View>
         </BottomSheetModal>
       </>
@@ -209,5 +212,10 @@ const styles = StyleSheet.create({
   bottomSheetContainer: {
     flex: 1,
     alignItems: 'center',
+    marginHorizontal: 16,
+  },
+  bottomSheetHeaderText: {
+    fontWeight: 'bold',
+    marginVertical: 8,
   },
 });
