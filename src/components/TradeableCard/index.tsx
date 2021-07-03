@@ -20,14 +20,14 @@ export const TradeableCard = ({ tradeableEntity, onPress }: Props) => {
     <TouchableOpacity onPress={onPress} style={styles.card}>
       <Text>{displayName}</Text>
       <Text>
-        {`${points.projected} FPS `}
+        {`${points.projected || 0} FPS `}
         <Text>PROJ</Text>
       </Text>
       <Text>
-        {`${points.scored} FPS `}
+        {`${points.scored || 0} FPS `}
         <Text>SCOR</Text>
       </Text>
-      <Text>{currency(price.estimated || 0).format()}</Text>
+      <Text>{currency(price.estimated || 1.0).format()}</Text>
     </TouchableOpacity>
   );
 };
