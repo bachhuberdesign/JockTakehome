@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import { filter, orderBy } from 'lodash';
 import {
+  BottomSheetBackdrop,
   BottomSheetModal,
   BottomSheetModalProvider,
 } from '@gorhom/bottom-sheet';
@@ -174,6 +175,7 @@ export const EventPlayers: React.FC<Props> = props => {
           ref={bottomSheetModalRef}
           index={1}
           snapPoints={['25%', '50%']}
+          backdropComponent={BottomSheetBackdrop}
         >
           <View style={styles.bottomSheetContainer}>
             <Text style={styles.bottomSheetHeaderText}>Sort by</Text>
