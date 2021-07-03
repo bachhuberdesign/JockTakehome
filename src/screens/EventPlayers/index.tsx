@@ -22,7 +22,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 
 import {
-  PlayersStack,
+  PlayersStackParams,
   SortDirection,
   TradeablesEntity,
   TradeableSortType,
@@ -32,7 +32,7 @@ import { TradeableCard, SheetListItem } from '../../components';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 interface Props {
-  navigation: StackNavigationProp<PlayersStack, 'EventPlayers'>;
+  navigation: StackNavigationProp<PlayersStackParams, 'EventPlayers'>;
 }
 
 interface TradeableResponse {
@@ -45,7 +45,7 @@ const transformStaticDataToTradeablesArray = (): TradeableResponse => {
   };
 };
 
-export const EventPlayers: React.FC<Props> = props => {
+export const EventPlayers: React.FC<Props> = () => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const [tradeables, setTradeables] = useState<TradeablesEntity[]>([]);
   const [searchText, setSearchText] = useState<string>('');

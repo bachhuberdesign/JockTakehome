@@ -1,4 +1,5 @@
 // Navigation types
+
 export type RootStackParams = {
   EventDashboard: undefined;
   EventDetails: undefined;
@@ -33,6 +34,7 @@ export type LeaderboardStackParams = {
 };
 
 // Sort types
+
 export enum TradeableSortType {
   PointsProjected = 'pointsProjected',
   PointsScored = 'pointsScored',
