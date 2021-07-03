@@ -8,15 +8,25 @@ import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
 
 import { EventDashboard } from '../screens';
-import { RootStackParamList } from '../types';
+import { RootStackParams } from '../types';
 import EventDetailsNavigator from './EventDetailsNavigator';
-import BottomTabNavigator from './EventDetailsNavigator';
 
 interface Props {
   colorScheme: ColorSchemeName;
 }
 
-export default function Navigation({ colorScheme }: Props) {
+const Stack = createStackNavigator<RootStackParams>();
+
+const RootNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="EventDashboard" component={EventDashboard} />
+      <Stack.Screen name="EventDetails" component={EventDetailsNavigator} />
+    </Stack.Navigator>
+  );
+};
+
+const Navigation = ({ colorScheme }: Props) => {
   return (
     <NavigationContainer
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
@@ -24,15 +34,6 @@ export default function Navigation({ colorScheme }: Props) {
       <RootNavigator />
     </NavigationContainer>
   );
-}
+};
 
-const Stack = createStackNavigator<RootStackParamList>();
-
-function RootNavigator() {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="EventDashboard" component={EventDashboard} />
-      <Stack.Screen name="EventDetails" component={EventDetailsNavigator} />
-    </Stack.Navigator>
-  );
-}
+export default Navigation;

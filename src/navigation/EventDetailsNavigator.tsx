@@ -7,73 +7,34 @@ import {
 import React from 'react';
 
 import { EventPlayers, PlaceholderScreen } from '../screens';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import {
+  ActivityStackParams,
+  EventDetailsTabParams,
+  HoldingsStackParams,
+  LeaderboardStackParams,
+  OrdersStackParams,
+  PlayersStackParams,
+} from '../types';
 
-const BottomTab = createBottomTabNavigator<BottomTabParamList>();
-const PlayersStack = createStackNavigator<TabOneParamList>();
-const OrdersStack = createStackNavigator<TabTwoParamList>();
-const HoldingsStack = createStackNavigator<TabTwoParamList>();
-const ActivityStack = createStackNavigator<TabTwoParamList>();
-const LeaderboardStack = createStackNavigator<TabTwoParamList>();
+const EventDetailsTab = createBottomTabNavigator<EventDetailsTabParams>();
+const PlayersStack = createStackNavigator<PlayersStackParams>();
+const OrdersStack = createStackNavigator<OrdersStackParams>();
+const HoldingsStack = createStackNavigator<HoldingsStackParams>();
+const ActivityStack = createStackNavigator<ActivityStackParams>();
+const LeaderboardStack = createStackNavigator<LeaderboardStackParams>();
 
 const defaultScreenOptions: Partial<StackNavigationOptions> = {
   headerBackTitleVisible: false,
 };
 
-export default function EventDetailsNavigator() {
-  return (
-    <BottomTab.Navigator initialRouteName="EventPlayers">
-      <BottomTab.Screen
-        name="Players"
-        component={PlayersTabNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="list" color={color} />,
-        }}
-      />
-      <BottomTab.Screen
-        name="Orders"
-        component={OrdersTabNavigator}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="swap-horizontal" color={color} />
-          ),
-        }}
-      />
-      <BottomTab.Screen
-        name="Holdings"
-        component={HoldingsTabNavigator}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="trending-up" color={color} />
-          ),
-        }}
-      />
-      <BottomTab.Screen
-        name="Activity"
-        component={ActivityTabNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="flash" color={color} />,
-        }}
-      />
-      <BottomTab.Screen
-        name="Leaderboard"
-        component={LeaderboardTabNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="trophy" color={color} />,
-        }}
-      />
-    </BottomTab.Navigator>
-  );
-}
-
-function TabBarIcon(props: {
+const TabBarIcon = (props: {
   name: React.ComponentProps<typeof Ionicons>['name'];
   color: string;
-}) {
+}) => {
   return <Ionicons size={24} style={{ marginBottom: -3 }} {...props} />;
-}
+};
 
-function PlayersTabNavigator() {
+const PlayersTabNavigator = () => {
   return (
     <PlayersStack.Navigator screenOptions={defaultScreenOptions}>
       <PlayersStack.Screen
@@ -83,9 +44,9 @@ function PlayersTabNavigator() {
       />
     </PlayersStack.Navigator>
   );
-}
+};
 
-function OrdersTabNavigator() {
+const OrdersTabNavigator = () => {
   return (
     <OrdersStack.Navigator screenOptions={defaultScreenOptions}>
       <OrdersStack.Screen
@@ -95,9 +56,9 @@ function OrdersTabNavigator() {
       />
     </OrdersStack.Navigator>
   );
-}
+};
 
-function HoldingsTabNavigator() {
+const HoldingsTabNavigator = () => {
   return (
     <HoldingsStack.Navigator screenOptions={defaultScreenOptions}>
       <HoldingsStack.Screen
@@ -107,9 +68,9 @@ function HoldingsTabNavigator() {
       />
     </HoldingsStack.Navigator>
   );
-}
+};
 
-function ActivityTabNavigator() {
+const ActivityTabNavigator = () => {
   return (
     <ActivityStack.Navigator screenOptions={defaultScreenOptions}>
       <ActivityStack.Screen
@@ -119,9 +80,9 @@ function ActivityTabNavigator() {
       />
     </ActivityStack.Navigator>
   );
-}
+};
 
-function LeaderboardTabNavigator() {
+const LeaderboardTabNavigator = () => {
   return (
     <LeaderboardStack.Navigator screenOptions={defaultScreenOptions}>
       <LeaderboardStack.Screen
@@ -131,4 +92,52 @@ function LeaderboardTabNavigator() {
       />
     </LeaderboardStack.Navigator>
   );
-}
+};
+
+const EventDetailsNavigator = () => {
+  return (
+    <EventDetailsTab.Navigator>
+      <EventDetailsTab.Screen
+        name="Players"
+        component={PlayersTabNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="list" color={color} />,
+        }}
+      />
+      <EventDetailsTab.Screen
+        name="Orders"
+        component={OrdersTabNavigator}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="swap-horizontal" color={color} />
+          ),
+        }}
+      />
+      <EventDetailsTab.Screen
+        name="Holdings"
+        component={HoldingsTabNavigator}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="trending-up" color={color} />
+          ),
+        }}
+      />
+      <EventDetailsTab.Screen
+        name="Activity"
+        component={ActivityTabNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="flash" color={color} />,
+        }}
+      />
+      <EventDetailsTab.Screen
+        name="Leaderboard"
+        component={LeaderboardTabNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="trophy" color={color} />,
+        }}
+      />
+    </EventDetailsTab.Navigator>
+  );
+};
+
+export default EventDetailsNavigator;

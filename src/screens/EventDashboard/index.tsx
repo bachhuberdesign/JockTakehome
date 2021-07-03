@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
@@ -6,9 +6,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import * as staticNbaEventData from '../../../assets/data/nba_event.json';
 import { EventCard } from '../../components';
-import { Event } from '../../types';
+import { Event, RootStackParams } from '../../types';
 
-interface Props {}
+interface Props {
+  navigation: StackNavigationProp<RootStackParams, 'EventDashboard'>;
+}
 
 interface EventResponse {
   events: Event[];
@@ -20,8 +22,7 @@ const transformStaticDataToEventArray = (): EventResponse => {
   };
 };
 
-export const EventDashboard: React.FC<Props> = props => {
-  const navigation = useNavigation();
+export const EventDashboard: React.FC<Props> = ({ navigation }) => {
   const [events, setEvents] = useState<Event[] | null>(null);
 
   // This is just a mock of what could be done if we had an actual API call here,

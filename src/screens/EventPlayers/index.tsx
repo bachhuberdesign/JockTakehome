@@ -21,22 +21,19 @@ import {
 } from '@gorhom/bottom-sheet';
 import { Ionicons } from '@expo/vector-icons';
 
-import { TradeablesEntity } from '../../types';
+import {
+  PlayersStack,
+  SortDirection,
+  TradeablesEntity,
+  TradeableSortType,
+} from '../../types';
 import * as staticNbaEventData from '../../../assets/data/nba_event.json';
 import { TradeableCard, SheetListItem } from '../../components';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-enum TradeableSortType {
-  PointsProjected = 'pointsProjected',
-  PointsScored = 'pointsScored',
-  PriceEstimated = 'priceEstimated',
+interface Props {
+  navigation: StackNavigationProp<PlayersStack, 'EventPlayers'>;
 }
-
-enum SortDirection {
-  Ascending = 'asc',
-  Descending = 'desc',
-}
-
-interface Props {}
 
 interface TradeableResponse {
   tradeables: TradeablesEntity[];

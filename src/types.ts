@@ -1,3 +1,51 @@
+// Navigation types
+export type RootStackParams = {
+  EventDashboard: undefined;
+  EventDetails: undefined;
+};
+
+export type EventDetailsTabParams = {
+  Players: PlayersStackParams;
+  Orders: OrdersStackParams;
+  Holdings: HoldingsStackParams;
+  Activity: ActivityStackParams;
+  Leaderboard: LeaderboardStackParams;
+};
+
+export type PlayersStackParams = {
+  EventPlayers: undefined;
+};
+
+export type OrdersStackParams = {
+  EventOrders: undefined;
+};
+
+export type HoldingsStackParams = {
+  EventHoldings: undefined;
+};
+
+export type ActivityStackParams = {
+  EventActivity: undefined;
+};
+
+export type LeaderboardStackParams = {
+  EventLeaderboard: undefined;
+};
+
+// Sort types
+export enum TradeableSortType {
+  PointsProjected = 'pointsProjected',
+  PointsScored = 'pointsScored',
+  PriceEstimated = 'priceEstimated',
+}
+
+export enum SortDirection {
+  Ascending = 'asc',
+  Descending = 'desc',
+}
+
+// Event data types
+
 export interface Weather {
   status: string;
   event: Event;
