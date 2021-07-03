@@ -22,8 +22,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { TradeablesEntity } from '../../types';
 import * as staticNbaEventData from '../../../assets/data/nba_event.json';
-import { TradeableCard } from '../../components/TradeableCard';
-import { SheetListItem } from '../../components/SheetListItem';
+import { TradeableCard, SheetListItem } from '../../components';
 
 enum TradeableSortType {
   PointsProjected = 'pointsProjected',
@@ -60,16 +59,6 @@ export const EventPlayers: React.FC<Props> = props => {
     SortDirection.Descending
   );
 
-  const snapPoints = useMemo(() => ['25%', '50%'], []);
-
-  const handlePresentModalPress = useCallback(() => {
-    bottomSheetModalRef.current?.present();
-  }, []);
-
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log('handleSheetChanges', index);
-  }, []);
-
   const fetchPlayers = async () => {
     // Because we are just working with dummy/test data, we will simulate an API request by
     // wrapping the data call in a setTimeout() with a random time.
@@ -101,7 +90,7 @@ export const EventPlayers: React.FC<Props> = props => {
   );
 
   const renderSeparator = useCallback(() => {
-    return <View style={{ marginTop: 8 }} />;
+    return <View style={{ marginTop: 4 }} />;
   }, []);
 
   const sortedTradeables = useMemo(() => {
@@ -142,6 +131,10 @@ export const EventPlayers: React.FC<Props> = props => {
     setSearchText(text);
   };
 
+  const onFilterButtonPressed = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+
   useEffect(() => {
     fetchPlayers();
   }, []);
@@ -162,7 +155,7 @@ export const EventPlayers: React.FC<Props> = props => {
           />
           <Ionicons
             name="options"
-            onPress={handlePresentModalPress}
+            onPress={onFilterButtonPressed}
             size={24}
             style={{ alignSelf: 'center' }}
           />
@@ -180,8 +173,7 @@ export const EventPlayers: React.FC<Props> = props => {
         <BottomSheetModal
           ref={bottomSheetModalRef}
           index={1}
-          snapPoints={snapPoints}
-          onChange={handleSheetChanges}
+          snapPoints={['25%', '50%']}
         >
           <View style={styles.bottomSheetContainer}>
             <Text style={styles.bottomSheetHeaderText}>Sort by</Text>
