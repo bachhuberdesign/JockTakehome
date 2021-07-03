@@ -12,7 +12,7 @@ interface Props {
 export const EventCard = ({ name, description, onPress }: Props) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.card}>
-      <Text style={{ color: 'black' }}>{name}</Text>
+      <Text>{name}</Text>
       <Text>{description}</Text>
     </TouchableOpacity>
   );
@@ -20,7 +20,8 @@ export const EventCard = ({ name, description, onPress }: Props) => {
 
 const styles = StyleSheet.create({
   card: {
-    width: 50,
-    height: 50,
+    height: 160,
+    width: 144,
+    backgroundColor: 'lightgray',
   },
 });

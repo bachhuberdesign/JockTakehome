@@ -9,6 +9,7 @@ import { ColorSchemeName } from 'react-native';
 
 import { EventDashboard } from '../screens';
 import { RootStackParamList } from '../types';
+import EventDetailsNavigator from './EventDetailsNavigator';
 import BottomTabNavigator from './EventDetailsNavigator';
 
 interface Props {
@@ -31,6 +32,7 @@ function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="EventDashboard" component={EventDashboard} />
+      <Stack.Screen name="EventDetails" component={EventDetailsNavigator} />
     </Stack.Navigator>
   );
 }
