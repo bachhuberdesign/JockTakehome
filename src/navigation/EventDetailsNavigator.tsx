@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/stack';
 import React from 'react';
 
-import { PlayerDetails, EventPlayers, PlaceholderScreen } from '../screens';
+import { EventPlayers, PlaceholderScreen } from '../screens';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
@@ -81,7 +81,6 @@ function PlayersTabNavigator() {
         component={EventPlayers}
         options={{ headerTitle: 'Players' }}
       />
-      <PlayersStack.Screen name="PlayerDetails" component={PlayerDetails} />
     </PlayersStack.Navigator>
   );
 }
