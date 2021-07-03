@@ -109,9 +109,9 @@ function HoldingsTabNavigator() {
   return (
     <HoldingsStack.Navigator screenOptions={defaultScreenOptions}>
       <HoldingsStack.Screen
-        name="EventOrders"
+        name="EventHoldings"
         component={PlaceholderScreen}
-        options={{ headerTitle: 'Orders' }}
+        options={{ headerTitle: 'Holdings' }}
       />
     </HoldingsStack.Navigator>
   );
