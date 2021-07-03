@@ -52,6 +52,7 @@ export const EventPlayers: React.FC<Props> = props => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const [tradeables, setTradeables] = useState<TradeablesEntity[]>([]);
   const [searchText, setSearchText] = useState<string>('');
+  const [isLoading, setLoading] = useState<boolean>(true);
   const [sortType, setSortType] = useState<TradeableSortType>(
     TradeableSortType.PointsProjected
   );
@@ -70,11 +71,22 @@ export const EventPlayers: React.FC<Props> = props => {
   }, []);
 
   const fetchPlayers = async () => {
+    // Because we are just working with dummy/test data, we will simulate an API request by
+    // wrapping the data call in a setTimeout() with a random time.
+    // This is just to show that the loading indicator and pull to refresh exists.
     try {
-      const response = transformStaticDataToTradeablesArray();
+      setLoading(true);
 
-      setTradeables(response.tradeables);
-    } catch (error) {}
+      setTimeout(() => {
+        const response = transformStaticDataToTradeablesArray();
+
+        setTradeables(response.tradeables);
+
+        setLoading(false);
+      }, Math.min(1500, Math.random() * 3 * 1000));
+    } catch (error) {
+      // TODO: Could have some sort of global error handler/logger call here
+    }
   };
 
   const renderTradeable = useCallback(
@@ -161,6 +173,8 @@ export const EventPlayers: React.FC<Props> = props => {
           keyExtractor={item => `${item.id}`}
           renderItem={renderTradeable}
           ItemSeparatorComponent={renderSeparator}
+          refreshing={isLoading}
+          onRefresh={fetchPlayers}
         />
 
         <BottomSheetModal
