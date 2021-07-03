@@ -6,7 +6,6 @@ import React, {
   useRef,
 } from 'react';
 import {
-  Button,
   FlatList,
   ListRenderItemInfo,
   Text,
@@ -20,7 +19,7 @@ import {
   BottomSheetModalProvider,
   TouchableOpacity,
 } from '@gorhom/bottom-sheet';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 import { TradeablesEntity } from '../../types';
 import * as staticNbaEventData from '../../../assets/data/nba_event.json';
@@ -99,8 +98,8 @@ export const EventPlayers: React.FC<Props> = props => {
     const filtered = filter(
       tradeables,
       (tradeable: TradeablesEntity) =>
-        // Because we are dipslaying names as S. Curry, we need to make sure
-        // that the user can search both S. Curry as well as Stephen Curry
+        // Because we are dipslaying names like "S. Curry", we need to make sure
+        // that the user can search both "S. Curry" as well as "Stephen Curry"
         tradeable.entity.name
           .replace(/[^A-Za-z0-9]/g, '')
           .toLowerCase()
@@ -149,8 +148,8 @@ export const EventPlayers: React.FC<Props> = props => {
             onChangeText={onSearchTextChanged}
             value={searchText}
           />
-          <MaterialCommunityIcons
-            name="filter-variant"
+          <Ionicons
+            name="options"
             onPress={handlePresentModalPress}
             size={24}
             style={{ alignSelf: 'center' }}

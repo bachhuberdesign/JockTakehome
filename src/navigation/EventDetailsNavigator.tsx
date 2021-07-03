@@ -4,10 +4,9 @@ import {
   createStackNavigator,
   StackNavigationOptions,
 } from '@react-navigation/stack';
-import * as React from 'react';
+import React from 'react';
 
 import { PlayerDetails, EventPlayers, PlaceholderScreen } from '../screens';
-
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
@@ -28,9 +27,7 @@ export default function EventDetailsNavigator() {
         name="Players"
         component={PlayersTabNavigator}
         options={{
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
-          ),
+          tabBarIcon: ({ color }) => <TabBarIcon name="list" color={color} />,
         }}
       />
       <BottomTab.Screen
@@ -38,7 +35,7 @@ export default function EventDetailsNavigator() {
         component={OrdersTabNavigator}
         options={{
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
+            <TabBarIcon name="swap-horizontal" color={color} />
           ),
         }}
       />
@@ -47,7 +44,7 @@ export default function EventDetailsNavigator() {
         component={HoldingsTabNavigator}
         options={{
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
+            <TabBarIcon name="trending-up" color={color} />
           ),
         }}
       />
@@ -55,18 +52,14 @@ export default function EventDetailsNavigator() {
         name="Activity"
         component={ActivityTabNavigator}
         options={{
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
-          ),
+          tabBarIcon: ({ color }) => <TabBarIcon name="flash" color={color} />,
         }}
       />
       <BottomTab.Screen
         name="Leaderboard"
         component={LeaderboardTabNavigator}
         options={{
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
-          ),
+          tabBarIcon: ({ color }) => <TabBarIcon name="trophy" color={color} />,
         }}
       />
     </BottomTab.Navigator>
@@ -77,7 +70,7 @@ function TabBarIcon(props: {
   name: React.ComponentProps<typeof Ionicons>['name'];
   color: string;
 }) {
-  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
+  return <Ionicons size={24} style={{ marginBottom: -3 }} {...props} />;
 }
 
 function PlayersTabNavigator() {
