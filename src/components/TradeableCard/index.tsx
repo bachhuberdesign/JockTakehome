@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const TradeableCard = ({ tradeableEntity, onPress }: Props) => {
-  const { points, price, rank } = tradeableEntity;
+  const { points, price } = tradeableEntity;
   const {
     first_name: firstName,
     last_name: lastName,
@@ -37,12 +37,12 @@ export const TradeableCard = ({ tradeableEntity, onPress }: Props) => {
         <View style={{ flexDirection: 'row' }}>
           <Text style={styles.fpsText}>
             {`${points.projected || 0} FPS `}
-            <Text style={styles.fpsSubText}>PROJ</Text>
+            <Text style={styles.subText}>PROJ</Text>
           </Text>
 
           <Text style={styles.fpsText}>
             {` ${points.scored || 0} FPS `}
-            <Text style={styles.fpsSubText}>SCOR</Text>
+            <Text style={styles.subText}>SCOR</Text>
           </Text>
         </View>
       </TouchableOpacity>
@@ -50,9 +50,21 @@ export const TradeableCard = ({ tradeableEntity, onPress }: Props) => {
       {/* Price info */}
       <TouchableOpacity style={styles.priceContainer} onPress={onPress}>
         <View style={styles.priceButton}>
-          <Text style={{ color: 'white', textAlign: 'center' }}>
+          <Text style={styles.priceButtonText}>
             {currency(price.estimated || 1.0).format()}
           </Text>
+        </View>
+
+        <View style={styles.priceTextContainer}>
+          <View style={{ alignItems: 'center' }}>
+            <Text style={styles.priceBidText}>{price.bid}</Text>
+            <Text style={styles.subText}>BID</Text>
+          </View>
+
+          <View style={{ alignItems: 'center' }}>
+            <Text style={styles.priceAskText}>{price.ask}</Text>
+            <Text style={styles.subText}>ASK</Text>
+          </View>
         </View>
       </TouchableOpacity>
     </View>
@@ -91,18 +103,38 @@ const styles = StyleSheet.create({
   priceContainer: {
     margin: 8,
   },
+  priceTextContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginHorizontal: 4,
+    marginTop: 4,
+  },
   priceButton: {
     alignSelf: 'flex-end',
     backgroundColor: 'black',
     borderRadius: 4,
-    height: 32,
+    height: 28,
     justifyContent: 'center',
     width: 72,
   },
-  fpsText: {
-    fontSize: 12,
+  priceButtonText: {
+    color: 'white',
+    textAlign: 'center',
   },
-  fpsSubText: {
+  priceBidText: {
+    fontSize: 11,
+    color: 'green',
+  },
+  priceAskText: {
+    fontSize: 11,
+    color: 'red',
+  },
+  fpsText: {
+    fontSize: 11,
+  },
+  subText: {
+    fontSize: 11,
     color: 'gray',
   },
 });

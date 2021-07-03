@@ -28,13 +28,11 @@ export const EventDashboard: React.FC<Props> = props => {
   // rather than the static nba_event.json
   const fetchEvents = async () => {
     try {
-      console.log('about to fetch');
-
       const response = transformStaticDataToEventArray();
 
       setEvents(response.events);
     } catch (error) {
-      // TODO: Add some sort of global error handler
+      // TODO: Could have some sort of global error handler/logger call here
     }
   };
 
@@ -43,6 +41,7 @@ export const EventDashboard: React.FC<Props> = props => {
   }, []);
 
   return (
+    // This screen is only here so we can have slightly more complex navigation
     <SafeAreaView>
       <View style={styles.container}>
         <Text>Your Events</Text>

@@ -91,7 +91,7 @@ export const EventPlayers: React.FC<Props> = props => {
   );
 
   const renderSeparator = useCallback(() => {
-    return <View style={{ marginTop: 4 }} />;
+    return <View style={styles.separator} />;
   }, []);
 
   const sortedTradeables = useMemo(() => {
@@ -102,6 +102,7 @@ export const EventPlayers: React.FC<Props> = props => {
       (tradeable: TradeablesEntity) =>
         // Because we are dipslaying names like "S. Curry", we need to make sure
         // that the user can search both "S. Curry" as well as "Stephen Curry"
+        // Ideally we would also be able to search on other fields like `entity.position`
         tradeable.entity.name
           .replace(/[^A-Za-z0-9]/g, '')
           .toLowerCase()
@@ -143,14 +144,10 @@ export const EventPlayers: React.FC<Props> = props => {
   return (
     <BottomSheetModalProvider>
       <>
-        <View style={{ margin: 16, flexDirection: 'row' }}>
+        <View style={styles.searchInputContainer}>
           <TextInput
             placeholder="Search players by name"
-            style={{
-              height: 32,
-              flexGrow: 1,
-              marginEnd: 4,
-            }}
+            style={styles.searchInput}
             onChangeText={onSearchTextChanged}
             value={searchText}
           />
@@ -225,5 +222,17 @@ const styles = StyleSheet.create({
   bottomSheetHeaderText: {
     fontWeight: 'bold',
     marginVertical: 8,
+  },
+  searchInput: {
+    height: 32,
+    flexGrow: 1,
+    marginEnd: 4,
+  },
+  searchInputContainer: {
+    margin: 16,
+    flexDirection: 'row',
+  },
+  separator: {
+    marginTop: 4,
   },
 });
