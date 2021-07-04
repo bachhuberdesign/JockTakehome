@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-import { ColorSchemeName } from 'react-native';
+import { ColorSchemeName, Image, View } from 'react-native';
 
 import { EventDashboard } from '../screens';
 import { RootStackParams } from '../types';
@@ -17,10 +17,25 @@ interface Props {
 
 const Stack = createStackNavigator<RootStackParams>();
 
+const headerLogo = require('../../assets/logo.png');
+
 const RootNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="EventDashboard" component={EventDashboard} />
+      <Stack.Screen
+        name="EventDashboard"
+        component={EventDashboard}
+        options={{
+          headerShown: true,
+          headerTitle: () => (
+            <Image
+              style={{ height: 35 }}
+              resizeMode="contain"
+              source={headerLogo}
+            />
+          ),
+        }}
+      />
       <Stack.Screen name="EventDetails" component={EventDetailsNavigator} />
     </Stack.Navigator>
   );

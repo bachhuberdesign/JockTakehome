@@ -1,12 +1,20 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 interface Props {}
 
-export const PlaceholderScreen: React.FC<Props> = props => {
+export const PlaceholderScreen: React.FC<Props> = () => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text>This is a placeholder screen.</Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexGrow: 1,
+    marginTop: 16,
+    alignItems: 'center',
+  },
+});

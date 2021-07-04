@@ -79,7 +79,7 @@ export const EventPlayers: React.FC<Props> = () => {
   const renderTradeable = useCallback(
     ({ item }: ListRenderItemInfo<TradeablesEntity>) => {
       const onPress = () => {
-        alert(JSON.stringify(item));
+        alert(`Raw data for tradeable:\n\n${JSON.stringify(item)}`);
       };
 
       return <TradeableCard tradeableEntity={item} onPress={onPress} />;
@@ -89,6 +89,19 @@ export const EventPlayers: React.FC<Props> = () => {
 
   const renderSeparator = useCallback(() => {
     return <View style={styles.separator} />;
+  }, []);
+
+  const renderListEmpty = useCallback(() => {
+    if (tradeables.length === 0) {
+      // Initial load, we should only show the "No Players" text after load completed
+      return null;
+    }
+
+    return (
+      <View style={styles.emptyListContainer}>
+        <Text>No Players</Text>
+      </View>
+    );
   }, []);
 
   const sortedTradeables = useMemo(() => {
@@ -161,6 +174,7 @@ export const EventPlayers: React.FC<Props> = () => {
           keyExtractor={item => `${item.id}`}
           renderItem={renderTradeable}
           ItemSeparatorComponent={renderSeparator}
+          ListEmptyComponent={renderListEmpty}
           refreshing={isLoading}
           onRefresh={fetchPlayers}
         />
@@ -231,5 +245,10 @@ const styles = StyleSheet.create({
   },
   separator: {
     marginTop: 4,
+  },
+  emptyListContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

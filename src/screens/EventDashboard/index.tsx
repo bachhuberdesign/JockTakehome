@@ -2,7 +2,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import * as staticNbaEventData from '../../../assets/data/nba_event.json';
 import { EventCard } from '../../components';
@@ -43,28 +42,39 @@ export const EventDashboard: React.FC<Props> = ({ navigation }) => {
 
   return (
     // This screen is only here so we can have slightly more complex navigation
-    <SafeAreaView>
-      <View style={styles.container}>
-        <Text>Your Events</Text>
-        <Text>Events you're watching and participating in</Text>
-        <View style={{ marginTop: 16 }} />
-        {events?.map(event => {
-          return (
-            <EventCard
-              key={event.id}
-              name={event.name}
-              description={event.description}
-              onPress={() => navigation.navigate('EventDetails')}
-            />
-          );
-        })}
-      </View>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <Text style={styles.titleText}>Your Events</Text>
+      <Text style={styles.subtitleText}>
+        Events you're watching and participating in
+      </Text>
+      <View style={{ marginTop: 16 }} />
+      {/* This should probably be a vertical FlatList with horizontal scrolling sections
+          for events. This is just a placeholder for the takehome test */}
+      {events?.map(event => {
+        return (
+          <EventCard
+            key={event.id}
+            name={event.name}
+            status={event.status}
+            description={event.description}
+            onPress={() => navigation.navigate('EventDetails')}
+          />
+        );
+      })}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
+    flexGrow: 1,
+    backgroundColor: '#eeeeee',
+    padding: 16,
+  },
+  titleText: {
+    fontWeight: '600',
+  },
+  subtitleText: {
+    fontSize: 12,
   },
 });

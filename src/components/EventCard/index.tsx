@@ -1,26 +1,38 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 interface Props {
   name: string;
   description: string;
+  status: string;
   onPress: () => void;
 }
 
-export const EventCard = ({ name, description, onPress }: Props) => {
+export const EventCard = ({ name, description, status, onPress }: Props) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.card}>
-      <Text>{name}</Text>
-      <Text>{description}</Text>
+      <Text style={styles.status}>{status}</Text>
+      <Text style={styles.nameText}>{name}</Text>
+      <Text style={styles.descriptionText}>{description}</Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
-    height: 160,
-    width: 144,
-    backgroundColor: 'lightgray',
+    width: 160,
+    backgroundColor: 'white',
+    borderRadius: 4,
+    padding: 8,
+  },
+  status: {
+    textTransform: 'capitalize',
+    marginBottom: 4,
+  },
+  nameText: {
+    fontWeight: '600',
+  },
+  descriptionText: {
+    fontWeight: '300',
   },
 });
