@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   titleText: {
-    fontWeight: '600',
+    fontWeight: 'bold',
   },
   subtitleText: {
     fontSize: 12,

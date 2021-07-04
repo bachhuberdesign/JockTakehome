@@ -57,12 +57,16 @@ export const TradeableCard = ({ tradeableEntity, onPress }: Props) => {
 
         <View style={styles.priceTextContainer}>
           <View style={{ alignItems: 'center' }}>
-            <Text style={styles.priceBidText}>{price.bid}</Text>
+            <Text style={styles.priceBidText}>
+              {currency(price.bid || 1.0).format({ symbol: '' })}
+            </Text>
             <Text style={styles.subText}>BID</Text>
           </View>
 
           <View style={{ alignItems: 'center' }}>
-            <Text style={styles.priceAskText}>{price.ask}</Text>
+            <Text style={styles.priceAskText}>
+              {currency(price.ask || 1.0).format({ symbol: '' })}
+            </Text>
             <Text style={styles.subText}>ASK</Text>
           </View>
         </View>
@@ -95,7 +99,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   playerNameText: {
-    fontWeight: '600',
+    fontWeight: 'bold',
   },
   playerPositionText: {
     color: 'gray',
