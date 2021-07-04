@@ -29,7 +29,7 @@ const RootNavigator = () => {
           headerShown: true,
           headerTitle: () => (
             <Image
-              style={{ height: 35 }}
+              style={{ height: 35, alignSelf: 'center' }}
               resizeMode="contain"
               source={headerLogo}
             />
